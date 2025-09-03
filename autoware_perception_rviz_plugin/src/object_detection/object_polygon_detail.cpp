@@ -529,6 +529,11 @@ visualization_msgs::msg::Marker::SharedPtr get_shape_marker_ptr(
     } else {
       calc_bounding_box_orientation_line_list(shape_msg, marker_ptr->points);
     }
+
+    // check if footprint is available
+    if (shape_msg.footprint.points.size() >= 3) {
+      calc_polygon_line_list(shape_msg, marker_ptr->points);
+    }
   } else if (shape_msg.type == Shape::CYLINDER) {
     if (fill_type == ObjectFillType::Skeleton) {
       marker_ptr->type = visualization_msgs::msg::Marker::LINE_LIST;
